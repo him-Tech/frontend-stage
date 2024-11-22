@@ -17,7 +17,7 @@ export function Home(props: HomeProps) {
         <FeaturesSection />
         <VideoSection />
         {STAGE_FLAG && <DigIntoDetails />}
-        <Projetcts />
+        {STAGE_FLAG && <Projetcts />}
       </div>
     </PageWrapper>
   );
