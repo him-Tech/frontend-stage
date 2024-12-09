@@ -16,7 +16,7 @@ import {
   UserDeveloper,
   userProps,
 } from "./views";
-import { AuthRoutes, Logout, SuperAdminRoutes, UnAuthRoutes } from "./views/layout/AuthRoutes";
+import { AuthRoutes, Logout, NonProdRoutes, SuperAdminRoutes, UnAuthRoutes } from "./views/layout/AuthRoutes";
 import { CreateCompany } from "src/views/pages/app/admin/createCompany/CreateCompany";
 import { CreateAddress } from "src/views/pages/app/admin/createAddress/CreateAddress";
 import { InviteCompanyUser } from "src/views/pages/app/admin/inviteCompanyUser/InviteCompanyUser";
@@ -26,8 +26,8 @@ import { InviteRepositoryUser } from "src/views/pages/app/admin/inviteRepository
 import { IssueId } from "src/model";
 import { WhoAreYou } from "src/views/pages/app/whoAreYou/WhoAreYou";
 import { RequestMaintainerRights } from "src/views/pages/app/requestMaintainerRights/RequestMaintainerRights";
-
-export const STAGE_FLAG: boolean = Boolean(process.env.REACT_APP_STAGE);
+import { MdConversion } from "src/views/pages/app/mdConversion/MdConversion";
+import { IssuesRoute } from "src/views/layout/IssuesRoute";
 
 const ownerParam = "ownerParam";
 const repoParam = "repoParam";
@@ -43,7 +43,7 @@ export function manageIssuePath(issueId: IssueId) {
 
 export enum BaseURL {
   WEBSITE = "/",
-  APP = "/who-are-you",
+  APP = "/issues",
 }
 
 const App = () => {
@@ -51,6 +51,12 @@ const App = () => {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
+          <Route element={<NonProdRoutes />}>
+            <Route path="/blog" element={<MdConversion />} />
+            <Route path="/who-are-you" element={<WhoAreYou />} />
+            <Route path="/buy-dows" element={<Payment />} />
+          </Route>
+
           <Route path="/" element={<Home />} />
           <Route path="/developer" element={<UserDeveloper {...developerProps} />} />
           <Route path="/user" element={<UserDeveloper {...userProps} />} />
@@ -71,8 +77,6 @@ const App = () => {
           </Route>
 
           <Route element={<AuthRoutes />}>
-            <Route path="/who-are-you" element={<WhoAreYou />} />
-            <Route path="/buy-dows" element={<Payment />} />
             <Route path="/request-maintainer-rights" element={<RequestMaintainerRights />} />
             <Route path="/fund-issues" element={<Issues audience={Audience.DEVELOPER} />} />
             <Route path="/manage-issues" element={<Issues audience={Audience.USER} />} />

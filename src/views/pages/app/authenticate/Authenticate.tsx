@@ -7,11 +7,11 @@ import github from "src/assets/github.png";
 import { GetCompanyUserInviteInfoQuery, LoginBody, LoginQuery, RegisterBody, RegisterQuery } from "src/dtos/auth";
 import { getAuthBackendAPI } from "src/services";
 import { Button } from "src/components";
-import { Audience } from "src/views/Audience";
 import { GetRepositoryUserInviteInfoQuery } from "src/dtos/auth/GetRepositoryUserInviteInfo.dto";
 import { TermsAgreement } from "src/views/pages/app/authenticate/elements/TermsAgreement";
 import { ApiError } from "src/ultils/error/ApiError";
 import { BaseURL } from "src/App";
+import { config, Env } from "src/ultils";
 
 export enum AuthenticateType {
   SignIn,
@@ -172,7 +172,8 @@ export function Authenticate(props: AuthenticateProps) {
               )}
 
               {/*TODO: incorporate it*/}
-              <TermsAgreement />
+
+              {config.env == Env.Production && <TermsAgreement />}
 
               {/*TODO: display error*/}
               {auth.error && <div className="alert alert-danger mt-3">{auth.error.toSting()}</div>}

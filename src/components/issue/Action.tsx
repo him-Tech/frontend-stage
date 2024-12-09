@@ -1,9 +1,9 @@
 import React from "react";
 import { Issue, ManagedIssueState } from "src/model";
 import { fundIssuePath, manageIssuePath } from "src/App";
-import { Button } from "../elements/Button";
+import { Button, ExternalLink } from "src/components";
 import { Link } from "react-router-dom";
-import { Audience } from "src/views";
+import { Audience, textColorVariants } from "src/views";
 
 interface ActionProps {
   issue: Issue;
